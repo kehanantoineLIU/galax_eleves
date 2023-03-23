@@ -13,6 +13,12 @@ public:
     virtual ~Model_CPU_fast() = default;
 
     virtual void step();
+
+private:
+	// std::vector<float> posx_ex;
+	// std::vector<float> posy_ex;
+	// std::vector<float> posz_ex;
+	// std::vector<float> mass_ex;
 };
 #endif // MODEL_CPU_FAST_HPP_
 
