@@ -36,10 +36,10 @@ void Model_CPU_FMM
 	GetMultipole(root);
 
 	// #pragma omp parallel for
-    for (int i = 0; i < n_particles; i++)
-    {
-        Evaluate(root, i);
-    }
+    // for (int i = 0; i < n_particles; i++)
+    // {
+    //     Evaluate(root, i);
+    // }
     // for (const auto &item : accelerationsx) 
     // {
     //     std::cout << item << "\n";

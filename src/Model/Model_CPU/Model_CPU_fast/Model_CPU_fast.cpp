@@ -109,7 +109,7 @@ void Model_CPU_fast
 
 					auto mask_threshold = xs::lt(dij, dij_threshold);
 					
-					dij =  _mm256_rsqrt_ps(dij);
+					dij =  _mm256_isqrt_ps(dij);
 					dij  = 10.0 * (dij * dij * dij);
 					dij = xs::select(mask_threshold, dij_max, dij);
 
