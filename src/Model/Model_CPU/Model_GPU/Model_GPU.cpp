@@ -93,12 +93,31 @@ void Model_GPU
 {
 	update_position_gpu(positionsGPU, velocitiesGPU, accelerationsGPU, massesGPU, n_particles);
 	cuda_memcpy(positionsf3.data(), positionsGPU, n_particles * sizeof(float3), cudaMemcpyDeviceToHost);
+	// cuda_memcpy(accelerationsf3.data(), positionsGPU, n_particles * sizeof(float3), cudaMemcpyDeviceToHost);
 	for (int i = 0; i < n_particles; i++)
 	{
+		// std::fill(accelerationsx.begin(), accelerationsx.end(), 0);
+		// std::fill(accelerationsy.begin(), accelerationsy.end(), 0);
+		// std::fill(accelerationsz.begin(), accelerationsz.end(), 0);
+
 		particles.x[i] = positionsf3[i].x;
 		particles.y[i] = positionsf3[i].y;
 		particles.z[i] = positionsf3[i].z;
+		// std::cout << "i " << i << "\n";
+		// std::cout << "accelerationsx " << accelerationsf3[i].x << "\n";
+		// std::cout << "accelerationsy " << accelerationsf3[i].y << "\n";
+		// std::cout << "accelerationsz " << accelerationsf3[i].z << "\n";
+		// std::cout << "particlesx " << particles.x[i] << "\n";
+		// std::cout << "particlesy " << particles.y[i] << "\n";
+		// std::cout << "particlesz " << particles.z[i] << "\n";
 	}
-}
+		
+	}
+
 
 #endif // GALAX_MODEL_GPU
+
+
+
+
+

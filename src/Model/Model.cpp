@@ -47,4 +47,3 @@ std::tuple<float, float, float> Model
         return {*minmax.first, *minmax.second, std::accumulate(relative_distances.cbegin(), relative_distances.cend(), 0.0) / relative_distances.size()};
     }
 }
-

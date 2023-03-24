@@ -22,6 +22,11 @@ inline __host__ __device__ void operator+=(float3 &a, float3 b)
 __global__ void compute_acc(float3 * positionsGPU, float3 * velocitiesGPU, float3 * accelerationsGPU, float* massesGPU, int n_particles)
 {
 	unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i > n_particles)
+	{
+		return;
+		//  asm("exit;");
+	}
 	// unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
 	accelerationsGPU[i].x = 0.0f;
 	accelerationsGPU[i].y = 0.0f;
@@ -57,6 +62,7 @@ __global__ void compute_acc(float3 * positionsGPU, float3 * velocitiesGPU, float
 
 __global__ void maj_pos(float3 * positionsGPU, float3 * velocitiesGPU, float3 * accelerationsGPU)
 {
+	
 	unsigned int i = blockIdx.x * blockDim.x + threadIdx.x;
 	velocitiesGPU[i].x += accelerationsGPU[i].x * 2.0f;
 	velocitiesGPU[i].y += accelerationsGPU[i].y * 2.0f;
@@ -71,9 +77,27 @@ void update_position_cu(float3* positionsGPU, float3* velocitiesGPU, float3* acc
 {
 	int nthreads = 128;
 	int nblocks =  (n_particles + (nthreads -1)) / nthreads;
+	// if (nthreads*nblocks>n_particles)
 
 	compute_acc<<<nblocks, nthreads>>>(positionsGPU, velocitiesGPU, accelerationsGPU, massesGPU, n_particles);
 	maj_pos    <<<nblocks, nthreads>>>(positionsGPU, velocitiesGPU, accelerationsGPU);
 }
 
+
+
+// void update_position_cu(float3* positionsGPU, float3* velocitiesGPU, float3* accelerationsGPU, float* massesGPU, int n_particles)
+// {
+// 	const int nthreads = 64;
+// 	int nblocks = divup(n_particles, nthreads);
+
+// 	// fps x N² iteration x 18 flops flops/s
+// 	// register : 32*10*k <4Kb
+// 	update_acc<nthreads,10,120> <<<nblocks, nthreads>>>(positionAndMassGpu, velocitiesGPU, accelerationsGPU, n_particles);
+
+
+// }
 #endif // GALAX_MODEL_GPU
+
+
+
+

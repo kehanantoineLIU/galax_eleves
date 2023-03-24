@@ -1,5 +1,5 @@
 #include <cmath>
-
+#include <iostream>
 #include "Model_CPU_naive.hpp"
 
 Model_CPU_naive
@@ -52,5 +52,12 @@ void Model_CPU_naive
 		particles.x[i] += velocitiesx   [i] * 0.1f;
 		particles.y[i] += velocitiesy   [i] * 0.1f;
 		particles.z[i] += velocitiesz   [i] * 0.1f;
+	// 	std::cout << "i " << i << "\n";
+	// 	std::cout << "accelerationsx " << accelerationsx[i] << "\n";
+	// 	std::cout << "accelerationsy " << accelerationsy[i] << "\n";
+	// 	std::cout << "accelerationsz " << accelerationsz[i] << "\n";
+	// 	std::cout << "particlesx " << particles.x[i] << "\n";
+	// 	std::cout << "particlesy " << particles.y[i] << "\n";
+	// 	std::cout << "particlesz " << particles.z[i] << "\n";
 	}
 }
